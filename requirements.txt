@@ -75,7 +75,7 @@ pyjwt==2.3.0
     #   flask-jwt-extended
 pyparsing==2.1.3
     # via packaging
-pyrsistent==0.18.1
+pyrsistent==0.17.0
     # via jsonschema
 python-dateutil==2.8.2
     # via Flask-AppBuilder (setup.py)
