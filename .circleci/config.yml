@@ -43,18 +43,6 @@ jobs:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
     
-    env:
-      SQLALCHEMY_DATABASE_URI:
-        postgresql+psycopg2://pguser:pguserpassword@127.0.0.1:15432/app
-    services:
-      postgres:
-        image: postgres:14-alpine
-        env:
-          POSTGRES_USER: pguser
-          POSTGRES_PASSWORD: pguserpassword
-          POSTGRES_DB: app
-        ports:
-          - 15432:5432
     steps:
       - checkout
       - restore_cache:
