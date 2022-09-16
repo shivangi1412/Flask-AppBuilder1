@@ -52,7 +52,7 @@ jinja2==3.0.3
     #   flask-babel
 jsonschema==3.2.0
     # via Flask-AppBuilder (setup.py)
-markupsafe==0.9
+markupsafe==1.1.1
     # via
     #   jinja2
     #   wtforms
