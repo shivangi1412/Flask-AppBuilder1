@@ -4,11 +4,11 @@ workflows:
   version: 2
   test:
     jobs:
-      -lint
-      -test-postgres
-      -test-mysql
-      -test-mssql
-      -test-mongodb
+      - lint
+      - test-postgres
+      - test-mysql
+      - test-mssql
+      - test-mongodb
            
 jobs:
   lint: 
