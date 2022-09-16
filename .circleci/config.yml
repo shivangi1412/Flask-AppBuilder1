@@ -35,9 +35,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            black --check setup.py flask_appbuilder
-            flake8 flask_appbuilder
-            mypy flask_appbuilder
+            pytest
             
             
             
