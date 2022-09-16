@@ -38,6 +38,59 @@ jobs:
             . venv/bin/activate
             black --check setup.py flask_appbuilder
             
+  test-postgres: &test-template-python3
+     docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    
+    env:
+      SQLALCHEMY_DATABASE_URI:
+        postgresql+psycopg2://pguser:pguserpassword@127.0.0.1:15432/app
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_USER: pguser
+          POSTGRES_PASSWORD: pguserpassword
+          POSTGRES_DB: app
+        ports:
+          - 15432:5432
+    steps:
+      - checkout
+      - restore_cache:
+         keys:
+           - v1-dependencies-{{ checksum "requirements.txt" }}
+           # fallback to using the latest cache if no exact match is found
+           - v1-dependencies-
+       - run:
+         name: install dependencies
+         command: |
+           python3 -m venv venv
+           . venv/bin/activate
+           sudo apt-get update
+           sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+           python --version
+           pip install --upgrade pip
+           pip install -r requirements.txt
+           pip install -r requirements-dev.txt
+           pip install -r requirements-extra.txt
+           uname -m
+           pip --version
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+      - run:
+          name: test
+          command: |
+            . venv/bin/activate
+            nosetests --stop -v --with-coverage --cover-package=flask_appbuilder flask_appbuilder.tests --ignore-files="test_mongoengine\.py"
+      - run:
+          name: upload code coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash) -cF python 
+        
+    
             
             
             
@@ -46,3 +99,4 @@ workflows:
  python3.9:
    jobs:
      - lint-unit-39
+     - test-postgres
