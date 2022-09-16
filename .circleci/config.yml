@@ -36,7 +36,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            tox -e py38
+            black --check setup.py flask_appbuilder
             
             
             
