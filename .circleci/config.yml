@@ -1,18 +1,28 @@
 # Python unit tests
-name: Python
-
-on:
-  push:
-    branches: ['master']
-  pull_request:
-    branches: ['master']
-
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      -lint
+      -test-postgres
+      -test-mysql
+      -test-mssql
+      -test-mongodb
+           
 jobs:
-  lint:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        python-version: [3.8]
+  lint: &test-template-python3
+    docker:
+      - image: circleci/python:3.6.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      
+    executor: python/default
+    working_directory: ~/repo
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -34,11 +44,19 @@ jobs:
       - name: mypy
         run: mypy flask_appbuilder
 
-  test-postgres:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        python-version: [3.7, 3.8, 3.9.7]
+ 
+  test-postgres: &test-template-python3
+    docker:
+      - image: circleci/python:3.6.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      
+    executor: python/default
+    working_directory: ~/repo
+    
     env:
       SQLALCHEMY_DATABASE_URI:
         postgresql+psycopg2://pguser:pguserpassword@127.0.0.1:15432/app
@@ -71,11 +89,19 @@ jobs:
       - name: Upload code coverage
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
-  test-mysql:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        python-version: [3.7]
+          
+  test-mysql: &test-template-python3
+    docker:
+      - image: circleci/python:3.6.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      
+    executor: python/default
+    working_directory: ~/repo
+    
     env:
       SQLALCHEMY_DATABASE_URI: |
         mysql+mysqldb://mysqluser:mysqluserpassword@127.0.0.1:13306/app?charset=utf8mb4&binary_prefix=true
@@ -109,11 +135,19 @@ jobs:
       - name: Upload code coverage
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
-  test-mssql:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        python-version: [3.7]
+          
+  test-mssql: &test-template-python3
+    docker:
+      - image: circleci/python:3.6.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      
+    executor: python/default
+    working_directory: ~/repo
+    
     env:
       SQLALCHEMY_DATABASE_URI: |
         mssql+pyodbc://sa:Password_123@localhost:11433/master?driver=FreeTDS
@@ -146,11 +180,19 @@ jobs:
       - name: Upload code coverage
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
-  test-mongodb:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        python-version: [3.7]
+          
+  test-mongodb: &test-template-python3
+    docker:
+      - image: circleci/python:3.6.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      
+    executor: python/default
+    working_directory: ~/repo
+    
     services:
       mssql:
         image: mongo:4.4.1-bionic
