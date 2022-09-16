@@ -11,7 +11,7 @@ workflows:
       -test-mongodb
            
 jobs:
-  lint: &test-template-python3
+  lint: 
     docker:
       - image: circleci/python:3.6.1
 
@@ -45,7 +45,7 @@ jobs:
         run: mypy flask_appbuilder
 
  
-  test-postgres: &test-template-python3
+  test-postgres:
     docker:
       - image: circleci/python:3.6.1
 
@@ -90,7 +90,7 @@ jobs:
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
           
-  test-mysql: &test-template-python3
+  test-mysql: 
     docker:
       - image: circleci/python:3.6.1
 
@@ -136,7 +136,7 @@ jobs:
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
           
-  test-mssql: &test-template-python3
+  test-mssql:
     docker:
       - image: circleci/python:3.6.1
 
@@ -181,7 +181,7 @@ jobs:
         run: |
           bash <(curl -s https://codecov.io/bash) -cF python
           
-  test-mongodb: &test-template-python3
+  test-mongodb: 
     docker:
       - image: circleci/python:3.6.1
 
