@@ -56,7 +56,7 @@ markupsafe==2.0
     # via
     #   jinja2
     #   wtforms
-marshmallow==2.15.2
+marshmallow==3.0
     # via
     #   Flask-AppBuilder (setup.py)
     #   marshmallow-enum
