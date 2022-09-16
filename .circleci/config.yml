@@ -38,7 +38,7 @@ jobs:
             . venv/bin/activate
             black --check setup.py flask_appbuilder
             
-  test-postgres: &test-template-python3
+  test-postgres: 
      docker:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
