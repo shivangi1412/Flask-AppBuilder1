@@ -6,7 +6,7 @@ jobs:
   lint-unit-39: &lint-unit
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/repo
+
     
     steps:
       - checkout
