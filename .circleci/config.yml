@@ -47,19 +47,19 @@ jobs:
       - checkout
      
       - run:
-        name: install dependencies
-        command: |
-          python3 -m venv venv
-          . venv/bin/activate
-          sudo apt-get update
-          sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
-          python --version
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install -r requirements-dev.txt
-          pip install -r requirements-extra.txt
-          uname -m
-          pip --version
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            sudo apt-get update
+            sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+            python --version
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            pip install -r requirements-dev.txt
+            pip install -r requirements-extra.txt
+            uname -m
+            pip --version
      
       - run:
           name: test
