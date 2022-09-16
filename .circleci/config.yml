@@ -20,13 +20,13 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            python --version
             pip install --upgrade pip
             pip install Flask==0.6.0
             pip install --upgrade pip
             pip install -r requirements.txt
             pip install -r requirements-dev.txt
             uname -m
-            python --version
             pip --version
       - save_cache:
           paths:
