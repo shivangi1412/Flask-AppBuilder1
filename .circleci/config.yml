@@ -45,29 +45,22 @@ jobs:
     
     steps:
       - checkout
-      - restore_cache:
-         keys:
-           - v1-dependencies-{{ checksum "requirements.txt" }}
-           # fallback to using the latest cache if no exact match is found
-           - v1-dependencies-
-       - run:
-         name: install dependencies
-         command: |
-           python3 -m venv venv
-           . venv/bin/activate
-           sudo apt-get update
-           sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
-           python --version
-           pip install --upgrade pip
-           pip install -r requirements.txt
-           pip install -r requirements-dev.txt
-           pip install -r requirements-extra.txt
-           uname -m
-           pip --version
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+     
+      - run:
+        name: install dependencies
+        command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          sudo apt-get update
+          sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+          python --version
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+          pip install -r requirements-extra.txt
+          uname -m
+          pip --version
+     
       - run:
           name: test
           command: |
