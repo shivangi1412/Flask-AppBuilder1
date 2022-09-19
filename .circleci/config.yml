@@ -27,7 +27,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            black --check setup.py flask_appbuilder
+            tox -e py38  
             
   test-postgres: 
     machine:
