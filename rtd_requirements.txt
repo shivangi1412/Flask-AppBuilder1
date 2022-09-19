@@ -96,7 +96,7 @@ werkzeug==2.0.3
     # via
     #   flask
     #   flask-jwt-extended
-wtforms==2.3.3
+wtforms
     # via
     #   Flask-AppBuilder (setup.py)
     #   flask-wtf
