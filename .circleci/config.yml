@@ -56,13 +56,12 @@ jobs:
             sudo apt-get install python3-dev
             python3 -m venv venv
             . venv/bin/activate
-            sudo apt-get update
-            sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
-            python --version
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            pip install -r requirements-dev.txt
-            pip install -r requirements-extra.txt
+             sudo apt-get install -y build-essential python3-dev libldap2-dev libsasl2-dev libssl-dev libmysqlclient-dev libpq-dev freetds-bin unixodbc-dev tdsodbc --yes
+             python3 -m pip install -U pip 
+             python3 setup.py install 
+             pip3 install -r requirements.txt
+             pip3 install -r requirements-dev.txt
+             pip3 install -r requirements-extra.txt
             
             uname -m
             pip --version
