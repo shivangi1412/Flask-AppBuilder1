@@ -30,8 +30,8 @@ jobs:
             black --check setup.py flask_appbuilder
             
   test-postgres: 
-    docker:
-      - image: circleci/python:3.6.1
+    machine:
+      image: ubuntu-2004:202101-01
     
     working_directory: ~/python-lz4
     steps:      
